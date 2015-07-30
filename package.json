@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/StandardInput/Nedflix-api/issues"
   },
-  "homepage": "https://github.com/StandardInput/Nedflix-api#readme"
+  "homepage": "https://github.com/StandardInput/Nedflix-api#readme",
+  "dependencies" : {
+    "request" : "*"
+  }
 }
