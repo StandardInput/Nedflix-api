@@ -1,0 +1,19 @@
+{
+  "name": "nedflix-api",
+  "version": "1.0.1",
+  "description": "Just a api wrapper for the dutch television",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/StandardInput/Nedflix-api.git"
+  },
+  "author": "StandardInput",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/StandardInput/Nedflix-api/issues"
+  },
+  "homepage": "https://github.com/StandardInput/Nedflix-api#readme"
+}
