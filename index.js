@@ -1,6 +1,5 @@
 var request = require('request');
-dataArrNPO = [];
-dataArrRTL = [];
+dataArr = [];
 // var episode = {}
 
 /*
@@ -19,6 +18,8 @@ exports.getNPO = function(callback) {
       if (!error && response.statusCode == 200) {
         json = JSON.parse(response.body);
 
+        dataArr = [];
+
         for (var i = 0; i < json.length; i++) {
             npo = json[i];
             
@@ -29,9 +30,9 @@ exports.getNPO = function(callback) {
             npoArr.proglogo = npo.image;
             npoArr.poster = npo.image;
             
-            dataArrNPO.push(npoArr);
+            dataArr.push(npoArr);
         };
-        callback(JSON.stringify(dataArrNPO, null, 4));
+        callback(JSON.stringify(dataArr, null, 4));
       }
     });
 }
@@ -52,6 +53,9 @@ exports.getRTL = function(type, callback) {
     return request(RTL_BASE_API + RTL_FETCH_PATH, function (error, response, body) {
       if (!error && response.statusCode == 200) {
         json = JSON.parse(response.body);
+
+        dataArr = [];
+
         PROGLOGO_BASE_URL = json.meta.proglogo_base_url;
         POSTER_BASE_URL = json.meta.poster_base_url;
 
@@ -65,9 +69,9 @@ exports.getRTL = function(type, callback) {
             rtlArr.proglogo = PROGLOGO_BASE_URL + abstracts.proglogo;
             rtlArr.poster = POSTER_BASE_URL + abstracts.coverurl;
             
-            dataArrRTL.push(rtlArr);
+            dataArr.push(rtlArr);
         };
-        callback(JSON.stringify(dataArrRTL, null, 4));
+        callback(JSON.stringify(dataArr, null, 4));
       }
     });
 
