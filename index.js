@@ -1,5 +1,6 @@
 var request = require('request');
-dataArr = [];
+dataArrNPO = [];
+dataArrRTL = [];
 // var episode = {}
 
 /*
@@ -28,9 +29,9 @@ exports.getNPO = function(callback) {
             npoArr.proglogo = npo.image;
             npoArr.poster = npo.image;
             
-            dataArr.push(npoArr);
+            dataArrNPO.push(npoArr);
         };
-        callback(JSON.stringify(dataArr, null, 4));
+        callback(JSON.stringify(dataArrNPO, null, 4));
       }
     });
 }
@@ -64,9 +65,9 @@ exports.getRTL = function(type, callback) {
             rtlArr.proglogo = PROGLOGO_BASE_URL + abstracts.proglogo;
             rtlArr.poster = POSTER_BASE_URL + abstracts.coverurl;
             
-            dataArr.push(rtlArr);
+            dataArrRTL.push(rtlArr);
         };
-        callback(JSON.stringify(dataArr, null, 4));
+        callback(JSON.stringify(dataArrRTL, null, 4));
       }
     });
 
