@@ -7,6 +7,7 @@ dataArr = [];
 */
 var NPO_BASE_API = "http://apps-api.uitzendinggemist.nl"
 var RTL_BASE_API = "http://rtl.nl/system/s4m/vfd/version=2/fmt=progressive/output=json";
+var MTV_BASE_API = "https://api.mtvnn.com/v2/site/m79obhheh2/nl"
 var RTL_FETCH_PATH = "";
 
 
@@ -37,6 +38,33 @@ exports.getNPO = function(callback) {
     });
 }
 
+
+/*
+* MTV:
+*/
+exports.getMTV = function(callback) {
+    return request(MTV_BASE_API + "/franchises.json?per=2147483647", function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+        json = JSON.parse(response.body);
+
+        dataArr = [];
+
+        for (var i = 0; i < json.length; i++) {
+            mtv = json[i];
+            
+            mtvArr = {}
+            mtvArr.id = mtv.id;
+            mtvArr.name = mtv.original_name;
+            mtvArr.description = mtv.local_long_description;
+            mtvArr.proglogo = "http://images.mtvnn.com/" + mtv.logo_riptide_id + "/100x100";
+            mtvArr.poster = "http://images.mtvnn.com/" + mtv.logo_riptide_id + "/640x300_";
+            
+            dataArr.push(mtvArr);
+        };
+        callback(JSON.stringify(dataArr, null, 4));
+      }
+    });
+}
 
 /*
 * RTL XL:
