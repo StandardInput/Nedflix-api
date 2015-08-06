@@ -8,6 +8,7 @@ dataArr = [];
 var NPO_BASE_API = "http://apps-api.uitzendinggemist.nl"
 var RTL_BASE_API = "http://rtl.nl/system/s4m/vfd/version=2/fmt=progressive/output=json";
 var MTV_BASE_API = "https://api.mtvnn.com/v2/site/m79obhheh2/nl"
+var VTM_BASE_API = "http://vod.medialaan.net/api/1.0"
 var RTL_FETCH_PATH = "";
 
 
@@ -131,5 +132,31 @@ exports.getRTLEpisodes = function(id, callback) {
 exports.getRTLVideo = function(id) {
 
 }
+/*
+* VTM: 
+*/
 
+exports.getVTM = function(callback) {
+    return request(VTM_BASE_API + "/list?app_id=zenderapp&limit=2147483647", function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+        json = JSON.parse(response.body);
 
+        dataArr = [];
+
+        for (var i = 0; i < json.response.items.length; i++) {
+            vtm = json.response.items[i];
+            
+            vtmArr = {}
+            vtmArr.id = vtm.id;
+            vtmArr.name = vtm.program;
+            vtmArr.description = vtm.text;
+            vtmArr.proglogo = vtm.images[0].styles.vtm_large;
+            vtmArr.poster = vtm.images[0].styles['800x450'];
+            
+            dataArr.push(vtmArr);
+        };
+        callback(JSON.stringify(dataArr, null, 4));
+      }
+    });
+
+}
