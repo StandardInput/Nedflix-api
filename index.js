@@ -9,6 +9,7 @@ var NPO_BASE_API = "http://apps-api.uitzendinggemist.nl"
 var RTL_BASE_API = "http://rtl.nl/system/s4m/vfd/version=2/fmt=progressive/output=json";
 var MTV_BASE_API = "https://api.mtvnn.com/v2/site/m79obhheh2/nl"
 var VTM_BASE_API = "http://vod.medialaan.net/api/1.0"
+var FOX_BASE_API = "http://api.foxsports.nl"
 var RTL_FETCH_PATH = "";
 
 
@@ -61,6 +62,34 @@ exports.getMTV = function(callback) {
             mtvArr.poster = "http://images.mtvnn.com/" + mtv.logo_riptide_id + "/640x300_";
             
             dataArr.push(mtvArr);
+        };
+        callback(JSON.stringify(dataArr, null, 4));
+      }
+    });
+}
+
+
+/*
+* FOXSPORTS:
+*/
+exports.getFOXSPORTS = function(callback) {
+    return request(MTV_BASE_API + "/videos?pagesize=2147483647", function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+        json = JSON.parse(response.body);
+
+        dataArr = [];
+
+        for (var i = 0; i < json.item.length; i++) {
+            foxsports = json.item[i];
+            
+            foxsportsArr = {}
+            foxsportsArr.id = foxsports.content_id;
+            foxsportsArr.name = foxsports.title;
+            foxsportsArr.description = foxsports.description;
+            foxsportsArr.proglogo = foxsports.image;
+            foxsportsArr.poster = foxsports.image;
+            
+            dataArr.push(foxsportsArr);
         };
         callback(JSON.stringify(dataArr, null, 4));
       }
